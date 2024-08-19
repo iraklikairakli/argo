@@ -1,0 +1,26 @@
+# Parameters
+# https://argo-workflows.readthedocs.io/en/stable/walk-through/parameters/ 
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: hello-world-parameters-
+spec:
+  entrypoint: whalesay
+  arguments:
+    parameters:
+    - name: message
+      value: hello world
+    - name: saxeli
+      value: ghvinianidze
+  templates:
+  - name: whalesay
+    inputs:
+      parameters:
+      - name: message
+      - name: saxeli
+    container:
+      image: docker/whalesay
+      command: [cowsay]
+      args:
+      - "{{inputs.parameters.message}}"
+      - "{{inputs.parameters.saxeli}}"

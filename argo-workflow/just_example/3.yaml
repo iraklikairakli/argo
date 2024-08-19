@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: reusable-template-
+  namespace: argo
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      steps:
+        - - name: print-message
+            template: print-message
+            arguments:
+              parameters:
+                - name: message
+                  value: "Hello, Argo!"
+        - - name: pataradzma
+            template: pataradzma
+            arguments:
+              parameters:
+                - name: message
+                  value: "Hello, Argo!"
+
+    - name: print-message
+      inputs:
+        parameters:
+          - name: message
+      container:
+        image: alpine:3.7
+        command: [echo]
+        args: ["{{inputs.parameters.message}}"]
+
+    - name: pataradzma
+      inputs:
+        parameters:
+          - name: message
+      container:
+        image: alpine:3.7
+        command: [echo]
+        args: ["{{inputs.parameters.message}}"]

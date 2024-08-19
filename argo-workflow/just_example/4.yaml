@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: detailed-spec-
+  namespace: argo
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      steps:
+        - - name: step1
+            template: step1
+        - - name: step2
+            template: step2
+        - - name: step3
+            template: step3
+
+    - name: step1
+      container:
+        image: alpine:3.7
+        command: [sh, -c]
+        args: ["echo Step 1 executed"]
+
+    - name: step2
+      container:
+        image: alpine:3.7
+        command: [sh, -c]
+        args: ["echo Step 2 executed after Step 1"]
+
+    - name: step3
+      container:
+        image: alpine:3.7
+        command: [sh, -c]
+        args: ["echo Step 3 executed after Step 2"]
