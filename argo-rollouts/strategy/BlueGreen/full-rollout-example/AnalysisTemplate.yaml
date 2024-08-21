@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: success-rate
+spec:
+  metrics:
+  - name: success-rate
+    provider:
+      job:
+        metadata:
+          labels:
+            analysis: post-promotion # pre-promotion
+            foo: bar # labels defined here will be copied to the Job object
+        spec:
+          backoffLimit: 0
+          template:
+            spec:
+              containers:
+              - name: success-rate
+                image: analysis:v1.0.2
+                imagePullPolicy: Never
+                env:
+                  - name: service_url
+                    value: "http://rollout-bluegreen-active.default.svc.cluster.local:80" #"http://rollout-bluegreen-preview.default.svc.cluster.local:80"
+                command: ["/bin/bash","-c"]
+                args:
+                  - ./app-success-rate.sh
+              restartPolicy: Never

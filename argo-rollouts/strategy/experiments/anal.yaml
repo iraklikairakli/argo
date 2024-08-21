@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: response-time-check
+spec:
+  metrics:
+  - name: request-duration
+    interval: 1m
+    count: 3
+    successCondition: result < 500
+    provider:
+      prometheus:
+        address: http://prometheus-server.monitoring.svc.cluster.local:80
+        query: avg(rate(http_request_duration_seconds_sum[5m])) by (job)

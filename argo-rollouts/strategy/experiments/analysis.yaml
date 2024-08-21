@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: http-benchmark
+spec:
+  args:
+  - name: host
+  metrics:
+  - name: request-duration
+    interval: 1m
+    count: 3
+    successCondition: result < 500
+    provider:
+      web:
+        url: "http://{{args.host}}:8080"
+        method: GET

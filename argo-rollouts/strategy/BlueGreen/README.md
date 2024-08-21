@@ -2,6 +2,9 @@
 
 This document provides an overview of the configurable features available for BlueGreen deployments in Argo Rollouts. These features allow you to customize the deployment behavior according to your requirements.
 
+Blue environment: The current live version, receiving all traffic.
+Green environment: The new version, which is fully deployed but not receiving any traffic until it is fully switched over.
+
 ## Configurable Features
 
 Below are the optional fields that can be configured to modify the behavior of BlueGreen deployment:
