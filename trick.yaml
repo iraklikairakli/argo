@@ -1,0 +1,8 @@
+---
+  ignoreDifferences:
+  - group: core
+    kind: ConfigMap
+    name: my-configmap  # Replace with your ConfigMap's name
+    jsonPointers:
+    - /data  # Ignore changes to the `data` field
+---
