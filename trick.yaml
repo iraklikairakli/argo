@@ -6,3 +6,6 @@
     jsonPointers:
     - /data  # Ignore changes to the `data` field
 ---
+initialDelaySeconds: 30
+#initialDelaySeconds: 30: This means that the analysis will wait for 30 seconds after the rollout starts before it begins to collect the response-time metric.
+
